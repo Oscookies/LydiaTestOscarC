@@ -6,9 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.lydiatestoscarc.contactsList.domain.Contact
+import com.example.lydiatestoscarc.contactsList.domain.RandomUser
 import com.example.lydiatestoscarc.contactDetails.ContactDetailsScreen
-import com.example.lydiatestoscarc.contactsList.presentation.ContactsListScreen
+import com.example.lydiatestoscarc.contactsList.presentation.RandomUserListScreen
 import kotlinx.serialization.Serializable
 import kotlin.reflect.typeOf
 
@@ -19,15 +19,15 @@ fun NavGraph(
 
     NavHost(navController, startDestination = Screen.ContactsList) {
         composable<Screen.ContactsList> {
-            ContactsListScreen(onNavigateToDetails = { contact ->
+            RandomUserListScreen(onNavigateToDetails = { contact ->
                 navController.navigate(Screen.ContactDetails(contact))
             })
         }
         composable<Screen.ContactDetails>(
-            typeMap = mapOf(typeOf<Contact>() to ContactType())
+            typeMap = mapOf(typeOf<RandomUser>() to ContactType())
         ) { backStackEntry ->
             val contactDetails: Screen.ContactDetails = backStackEntry.toRoute()
-            ContactDetailsScreen(contactDetails.contact)
+            ContactDetailsScreen(contactDetails.randomUser)
         }
     }
 }
@@ -38,6 +38,6 @@ sealed interface Screen {
     data object ContactsList: Screen
 
     @Serializable
-    data class ContactDetails(val contact: Contact): Screen
+    data class ContactDetails(val randomUser: RandomUser): Screen
 
 }

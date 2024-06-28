@@ -4,17 +4,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.lydiatestoscarc.contactsList.domain.Contact
+import com.example.lydiatestoscarc.contactsList.domain.RandomUser
 
 @Composable
-fun ContactsListScreen(
-    onNavigateToDetails: (Contact) -> Unit
+fun RandomUserListScreen(
+    onNavigateToDetails: (RandomUser) -> Unit
 ) {
 
     Text(
         text = "Contacts List",
         modifier = Modifier.clickable {
-            onNavigateToDetails(Contact("John Doe"))
+            onNavigateToDetails(RandomUser("John Doe"))
         }
     )
 
