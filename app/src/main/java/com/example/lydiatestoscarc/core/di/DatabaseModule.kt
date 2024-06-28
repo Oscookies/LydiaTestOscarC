@@ -1,4 +1,4 @@
-package com.example.lydiatestoscarc.di
+package com.example.lydiatestoscarc.core.di
 
 import android.content.Context
 import androidx.room.Room

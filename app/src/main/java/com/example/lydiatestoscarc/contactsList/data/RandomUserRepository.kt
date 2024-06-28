@@ -4,8 +4,8 @@ import com.example.lydiatestoscarc.contactsList.domain.RandomUser
 import com.example.lydiatestoscarc.core.db.RandomUserDao
 import com.example.lydiatestoscarc.core.db.mapper.asDomain
 import com.example.lydiatestoscarc.core.db.mapper.asEntity
-import com.example.lydiatestoscarc.di.Dispatcher
-import com.example.lydiatestoscarc.di.LydiaDispatchers
+import com.example.lydiatestoscarc.core.di.Dispatcher
+import com.example.lydiatestoscarc.core.di.LydiaDispatchers
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onFailure
 import com.skydoves.sandwich.suspendOnSuccess
@@ -34,7 +34,7 @@ class RandomUserRepositoryImpl @Inject constructor(
 ) : RandomUserRepository {
 
     private val seed = "lydia"
-    private val pageCount = 10
+    private val pageCount = 20
 
     override suspend fun search(
         page: Int,

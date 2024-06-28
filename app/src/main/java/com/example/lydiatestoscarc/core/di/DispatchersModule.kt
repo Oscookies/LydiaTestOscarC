@@ -1,4 +1,4 @@
-package com.example.lydiatestoscarc.di
+package com.example.lydiatestoscarc.core.di
 
 import dagger.Module
 import dagger.Provides

@@ -10,7 +10,8 @@ data class RandomUser (
     val gender: String,
     val name: Name,
     val email: String,
-    var page: Int
+    var page: Int,
+    var picture: Picture
 ): Parcelable
 
 @Serializable
@@ -18,5 +19,11 @@ data class RandomUser (
 data class Name (
     val first: String,
     val last: String
+): Parcelable
+
+@Serializable
+@Parcelize
+data class Picture (
+    val medium: String
 ): Parcelable
 

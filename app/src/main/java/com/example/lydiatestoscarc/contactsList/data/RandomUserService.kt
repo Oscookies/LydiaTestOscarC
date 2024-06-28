@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface RandomUserService {
 
-    @GET("trip/search/v7")
+    @GET("api/1.3/")
     suspend fun searchUsers(
         @Query("seed") seed: String,
         @Query("results") results: Int,

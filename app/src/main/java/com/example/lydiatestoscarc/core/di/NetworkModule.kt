@@ -1,4 +1,4 @@
-package com.example.lydiatestoscarc.di
+package com.example.lydiatestoscarc.core.di
 
 import com.example.lydiatestoscarc.BuildConfig
 import com.example.lydiatestoscarc.contactsList.data.RandomUserService

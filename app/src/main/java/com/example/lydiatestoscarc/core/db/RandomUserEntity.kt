@@ -10,4 +10,5 @@ data class RandomUserEntity(
     val gender: String,
     val name: String,
     var page: Int = 0,
+    var picture: String,
 )

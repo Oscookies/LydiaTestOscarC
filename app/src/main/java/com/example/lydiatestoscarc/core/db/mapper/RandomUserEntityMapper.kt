@@ -1,6 +1,7 @@
 package com.example.lydiatestoscarc.core.db.mapper
 
 import com.example.lydiatestoscarc.contactsList.domain.Name
+import com.example.lydiatestoscarc.contactsList.domain.Picture
 import com.example.lydiatestoscarc.contactsList.domain.RandomUser
 import com.example.lydiatestoscarc.core.db.RandomUserEntity
 
@@ -13,6 +14,7 @@ object RandomUserEntityMapper : EntityMapper<List<RandomUser>, List<RandomUserEn
                 name = "${randomUser.name.first} ${randomUser.name.last}",
                 gender = randomUser.gender,
                 email = randomUser.email,
+                picture = randomUser.picture.medium
             )
         }
     }
@@ -24,6 +26,7 @@ object RandomUserEntityMapper : EntityMapper<List<RandomUser>, List<RandomUserEn
                 name = Name(randomUserEntity.name.substringBefore(' '), randomUserEntity.name.substringAfter(' ')),
                 gender = randomUserEntity.gender,
                 email = randomUserEntity.email,
+                picture = Picture(randomUserEntity.picture),
             )
         }
     }
