@@ -23,7 +23,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "API_BASE_URL", "\"https://randomuser.me/api/\"")
+            buildConfigField("String", "API_BASE_URL", "\"https://randomuser.me/\"")
         }
         release {
             isMinifyEnabled = false
@@ -64,6 +64,10 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
     implementation("androidx.navigation:navigation-compose:2.8.0-beta03")
+    //Pagination
+    val pagingVersion = "3.2.1"
+    implementation ("androidx.paging:paging-runtime-ktx:$pagingVersion")
+    implementation ("androidx.paging:paging-compose:$pagingVersion")
     // DI
     implementation("com.google.dagger:hilt-android:2.47")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
@@ -74,10 +78,10 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.github.skydoves:sandwich-retrofit:2.0.8")
     //DB
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-    implementation ("androidx.room:room-ktx:$room_version")
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation ("androidx.room:room-ktx:$roomVersion")
     //Image Loading
     implementation("io.coil-kt:coil-compose:2.0.0-rc01")
     //

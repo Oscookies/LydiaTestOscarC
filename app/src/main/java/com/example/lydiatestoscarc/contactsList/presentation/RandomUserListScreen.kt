@@ -65,9 +65,6 @@ fun RandomUserListContent(
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         val threadHold = 8
-        Text(
-            text = stringResource(id = R.string.random_user_list_title),
-        )
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(6.dp),
@@ -116,6 +113,7 @@ private fun RandomUserCard(
             painter = rememberAsyncImagePainter(randomUser.picture.medium),
             contentDescription = null,
             modifier = Modifier
+                .align(Alignment.CenterHorizontally)
                 .size(128.dp)
                 .padding(8.dp)
         )
