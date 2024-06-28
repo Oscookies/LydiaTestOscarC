@@ -1,6 +1,6 @@
-package com.example.lydiatestoscarc.contactsList.data
+package com.example.lydiatestoscarc.randomUserList.data
 
-import com.example.lydiatestoscarc.contactsList.domain.RandomUserNetworkResponse
+import com.example.lydiatestoscarc.randomUserList.domain.RandomUserNetworkResponse
 import com.skydoves.sandwich.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Query

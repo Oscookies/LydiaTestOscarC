@@ -6,28 +6,35 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.lydiatestoscarc.contactsList.domain.RandomUser
-import com.example.lydiatestoscarc.contactDetails.ContactDetailsScreen
-import com.example.lydiatestoscarc.contactsList.presentation.RandomUserListScreen
+import com.example.lydiatestoscarc.randomUserDetails.RandomUserDetailsScreen
+import com.example.lydiatestoscarc.randomUserList.presentation.RandomUserListScreen
 import kotlinx.serialization.Serializable
-import kotlin.reflect.typeOf
 
 @Composable
 fun NavGraph(
     navController: NavHostController = rememberNavController(),
 ) {
 
-    NavHost(navController, startDestination = Screen.ContactsList) {
-        composable<Screen.ContactsList> {
-            RandomUserListScreen(onNavigateToDetails = { contact ->
-                navController.navigate(Screen.ContactDetails(contact))
+    NavHost(navController, startDestination = Screen.RandomUserList) {
+        composable<Screen.RandomUserList> {
+            RandomUserListScreen(onNavigateToDetails = { user ->
+                navController.navigate(
+                    Screen.RandomUserDetails(
+                        "${user.name.first} ${user.name.last}",
+                        user.email,
+                        user.picture.medium
+                    )
+                )
             })
         }
-        composable<Screen.ContactDetails>(
-            typeMap = mapOf(typeOf<RandomUser>() to ContactType())
+        composable<Screen.RandomUserDetails>(
         ) { backStackEntry ->
-            val contactDetails: Screen.ContactDetails = backStackEntry.toRoute()
-            ContactDetailsScreen(contactDetails.randomUser)
+            val args = backStackEntry.toRoute<Screen.RandomUserDetails>()
+            RandomUserDetailsScreen(
+                args.name,
+                args.email,
+                args.imageUrl
+            )
         }
     }
 }
@@ -35,9 +42,13 @@ fun NavGraph(
 sealed interface Screen {
 
     @Serializable
-    data object ContactsList: Screen
+    data object RandomUserList: Screen
 
     @Serializable
-    data class ContactDetails(val randomUser: RandomUser): Screen
+    data class RandomUserDetails(
+        val name: String,
+        val email: String,
+        val imageUrl: String
+    ): Screen
 
 }

@@ -1,6 +1,6 @@
-package com.example.lydiatestoscarc.contactsList.data
+package com.example.lydiatestoscarc.randomUserList.data
 
-import com.example.lydiatestoscarc.contactsList.domain.RandomUser
+import com.example.lydiatestoscarc.randomUserList.domain.RandomUser
 import com.example.lydiatestoscarc.core.db.RandomUserDao
 import com.example.lydiatestoscarc.core.db.mapper.asDomain
 import com.example.lydiatestoscarc.core.db.mapper.asEntity

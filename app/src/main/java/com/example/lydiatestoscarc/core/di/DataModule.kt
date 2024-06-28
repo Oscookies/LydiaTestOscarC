@@ -1,7 +1,7 @@
 package com.example.lydiatestoscarc.core.di
 
-import com.example.lydiatestoscarc.contactsList.data.RandomUserRepository
-import com.example.lydiatestoscarc.contactsList.data.RandomUserRepositoryImpl
+import com.example.lydiatestoscarc.randomUserList.data.RandomUserRepository
+import com.example.lydiatestoscarc.randomUserList.data.RandomUserRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

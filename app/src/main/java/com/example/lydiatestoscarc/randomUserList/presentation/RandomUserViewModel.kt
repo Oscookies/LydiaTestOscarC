@@ -1,9 +1,9 @@
-package com.example.lydiatestoscarc.contactsList.presentation
+package com.example.lydiatestoscarc.randomUserList.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lydiatestoscarc.contactsList.data.RandomUserRepository
-import com.example.lydiatestoscarc.contactsList.domain.RandomUser
+import com.example.lydiatestoscarc.randomUserList.data.RandomUserRepository
+import com.example.lydiatestoscarc.randomUserList.domain.RandomUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

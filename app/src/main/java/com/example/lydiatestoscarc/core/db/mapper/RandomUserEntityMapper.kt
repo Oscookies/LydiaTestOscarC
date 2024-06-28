@@ -1,8 +1,8 @@
 package com.example.lydiatestoscarc.core.db.mapper
 
-import com.example.lydiatestoscarc.contactsList.domain.Name
-import com.example.lydiatestoscarc.contactsList.domain.Picture
-import com.example.lydiatestoscarc.contactsList.domain.RandomUser
+import com.example.lydiatestoscarc.randomUserList.domain.Name
+import com.example.lydiatestoscarc.randomUserList.domain.Picture
+import com.example.lydiatestoscarc.randomUserList.domain.RandomUser
 import com.example.lydiatestoscarc.core.db.RandomUserEntity
 
 object RandomUserEntityMapper : EntityMapper<List<RandomUser>, List<RandomUserEntity>> {

@@ -1,4 +1,4 @@
-package com.example.lydiatestoscarc.contactsList.domain
+package com.example.lydiatestoscarc.randomUserList.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

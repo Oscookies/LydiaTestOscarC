@@ -1,7 +1,7 @@
 package com.example.lydiatestoscarc.core.di
 
 import com.example.lydiatestoscarc.BuildConfig
-import com.example.lydiatestoscarc.contactsList.data.RandomUserService
+import com.example.lydiatestoscarc.randomUserList.data.RandomUserService
 import com.skydoves.sandwich.retrofit.adapters.ApiResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
