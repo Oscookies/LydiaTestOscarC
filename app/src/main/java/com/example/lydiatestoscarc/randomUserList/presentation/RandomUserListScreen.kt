@@ -8,7 +8,9 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,6 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -61,7 +64,7 @@ fun SharedTransitionScope.RandomUserListScreen(
 @Composable
 fun SharedTransitionScope.RandomUserListContent(
     uiState: RandomUserListUiState,
-    randomUserListList: List<RandomUser>,
+    randomUserList: List<RandomUser>,
     onNavigateToDetails: (RandomUser) -> Unit,
     getNextPage: () -> Unit,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -73,9 +76,9 @@ fun SharedTransitionScope.RandomUserListContent(
             contentPadding = PaddingValues(6.dp),
         ) {
             itemsIndexed(
-                items = randomUserListList, key = { _, user -> user.email }
+                items = randomUserList, key = { _, user -> user.email }
             ) { index, randomUser ->
-                if ((index + threadHold) >= randomUserListList.size && uiState != RandomUserListUiState.Loading) {
+                if ((index + threadHold) >= randomUserList.size && uiState != RandomUserListUiState.Loading) {
                     getNextPage()
                 }
 
@@ -87,11 +90,32 @@ fun SharedTransitionScope.RandomUserListContent(
             }
         }
 
-        if (uiState == RandomUserListUiState.Loading) {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center),
-                color = colorResource(id = R.color.purple_200),
-            )
+        when(uiState) {
+            RandomUserListUiState.Loading -> {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center),
+                    color = colorResource(id = R.color.purple_200),
+                )
+            }
+            RandomUserListUiState.Idle -> { }
+            is RandomUserListUiState.Error -> {
+                if(uiState.message!!.contains("Unable to resolve host") && randomUserList.isEmpty()) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.no_internet),
+                            color = colorResource(id = R.color.black)
+                        )
+                        Text(
+                            text = stringResource(id = R.string.try_again),
+                            color = colorResource(id = R.color.black)
+                        )
+                    }
+                }
+            }
         }
     }
 

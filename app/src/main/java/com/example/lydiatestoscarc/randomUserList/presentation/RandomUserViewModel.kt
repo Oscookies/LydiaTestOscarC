@@ -28,7 +28,11 @@ class RandomUserViewModel
         randomUserRepository.search(
             page = page,
             onStart = { _uiState.tryEmit(RandomUserListUiState.Loading) },
-            onComplete = { _uiState.tryEmit(RandomUserListUiState.Idle) },
+            onComplete = { failure ->
+                if(!failure) {
+                    _uiState.tryEmit(RandomUserListUiState.Idle)
+                }
+             },
             onError = { _uiState.tryEmit(RandomUserListUiState.Error(it)) },
         )
     }.stateIn(

@@ -22,7 +22,7 @@ interface RandomUserRepository {
     suspend fun search(
         page: Int,
         onStart: () -> Unit,
-        onComplete: () -> Unit,
+        onComplete: (Boolean) -> Unit,
         onError: (String?) -> Unit,
     ): Flow<List<RandomUser>>
 }
@@ -35,13 +35,15 @@ class RandomUserRepositoryImpl @Inject constructor(
 
     private val seed = "lydia"
     private val pageCount = 20
+    private var failure = false
 
     override suspend fun search(
         page: Int,
         onStart: () -> Unit,
-        onComplete: () -> Unit,
+        onComplete: (Boolean) -> Unit,
         onError: (String?) -> Unit,
     ) = flow {
+        failure = false
         var users = randomUserDao.getRandomUserList(page).asDomain()
         if (users.isEmpty()) {
             val response = randomUserService.searchUsers(seed, pageCount, page)
@@ -50,12 +52,13 @@ class RandomUserRepositoryImpl @Inject constructor(
                 users.forEach { user -> user.page = page }
                 randomUserDao.insertRandomUserList(users.asEntity())
                 emit(randomUserDao.getAllRandomUserList(page).asDomain())
-            }.onFailure { // handles the all error cases from the API request fails.
+            }.onFailure {
+                failure = true
                 onError(message())
             }
         } else {
             emit(randomUserDao.getAllRandomUserList(page).asDomain())
         }
-    }.onStart { onStart() }.onCompletion { onComplete() }.flowOn(ioDispatcher)
+    }.onStart { onStart() }.onCompletion { onComplete(failure) }.flowOn(ioDispatcher)
 
 }
