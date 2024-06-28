@@ -1,5 +1,9 @@
 package com.example.lydiatestoscarc.randomUserDetails
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,11 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun RandomUserDetailsScreen(
+fun SharedTransitionScope.RandomUserDetailsScreen(
     name: String,
     email: String,
-    imageUrl: String
+    imageUrl: String,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
 
     Column(
@@ -26,8 +32,6 @@ fun RandomUserDetailsScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = name)
-        Text(text = email)
         Image(
             painter = rememberAsyncImagePainter(imageUrl),
             contentDescription = null,
@@ -35,7 +39,18 @@ fun RandomUserDetailsScreen(
                 .align(Alignment.CenterHorizontally)
                 .size(128.dp)
                 .padding(8.dp)
+                .sharedElement(
+                    state = rememberSharedContentState(key = "image/$imageUrl"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    boundsTransform = { _, _ ->
+                        tween(durationMillis = 1000)
+                    }
+                )
         )
+        Text(
+            text = name
+        )
+        Text(text = email)
     }
 
 }

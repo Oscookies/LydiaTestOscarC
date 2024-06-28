@@ -1,5 +1,11 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.example.lydiatestoscarc.randomUserList.presentation
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,21 +30,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import com.example.lydiatestoscarc.R
-import com.example.lydiatestoscarc.randomUserList.domain.Name
-import com.example.lydiatestoscarc.randomUserList.domain.Picture
 import com.example.lydiatestoscarc.randomUserList.domain.RandomUser
 
 @Composable
-fun RandomUserListScreen(
+fun SharedTransitionScope.RandomUserListScreen(
     randomUserViewModel: RandomUserViewModel= hiltViewModel(),
-    onNavigateToDetails: (RandomUser) -> Unit
+    onNavigateToDetails: (RandomUser) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
 
     val uiState by randomUserViewModel.uiState.collectAsState()
@@ -48,17 +52,19 @@ fun RandomUserListScreen(
         uiState,
         randomUserListList,
         onNavigateToDetails,
-        randomUserViewModel::getNextPage
+        randomUserViewModel::getNextPage,
+        animatedVisibilityScope,
     )
 
 }
 
 @Composable
-fun RandomUserListContent(
+fun SharedTransitionScope.RandomUserListContent(
     uiState: RandomUserListUiState,
     randomUserListList: List<RandomUser>,
     onNavigateToDetails: (RandomUser) -> Unit,
-    getNextPage: () -> Unit
+    getNextPage: () -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         val threadHold = 8
@@ -75,7 +81,8 @@ fun RandomUserListContent(
 
                 RandomUserCard(
                     randomUser = randomUser,
-                    onNavigateToDetails = onNavigateToDetails
+                    onNavigateToDetails = onNavigateToDetails,
+                    animatedVisibilityScope
                 )
             }
         }
@@ -90,10 +97,12 @@ fun RandomUserListContent(
 
 }
 
+
 @Composable
-private fun RandomUserCard(
+private fun SharedTransitionScope.RandomUserCard(
     randomUser: RandomUser,
     onNavigateToDetails: (RandomUser) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
 
     Card(
@@ -113,6 +122,13 @@ private fun RandomUserCard(
                 .align(Alignment.CenterHorizontally)
                 .size(128.dp)
                 .padding(8.dp)
+                .sharedElement(
+                    state = rememberSharedContentState(key = "image/${randomUser.picture.medium}"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    boundsTransform = { _, _ ->
+                        tween(durationMillis = 1000)
+                    }
+                )
         )
 
         Text(
@@ -126,19 +142,4 @@ private fun RandomUserCard(
             fontWeight = FontWeight.Bold,
         )
     }
-}
-
-@Preview
-@Composable
-fun RandomUserListContentPreview() {
-
-    RandomUserListContent(
-        uiState = RandomUserListUiState.Idle,
-        randomUserListList = listOf(
-            RandomUser("Non Binary", Name("John", "Doe"), "a@a.com",  0, Picture("https://randomuser.me/api/portraits/men/88.jpg")),
-        ),
-        onNavigateToDetails = { },
-        {}
-    )
-
 }

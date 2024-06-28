@@ -64,6 +64,9 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
     implementation("androidx.navigation:navigation-compose:2.8.0-beta03")
+    //
+    implementation("androidx.compose.animation:animation:1.7.0-beta04")
+    implementation ("androidx.compose.foundation:foundation:1.7.0-beta04")
     //Pagination
     val pagingVersion = "3.2.1"
     implementation ("androidx.paging:paging-runtime-ktx:$pagingVersion")
